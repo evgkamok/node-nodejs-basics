@@ -1,15 +1,14 @@
 import { promises as fs } from 'fs'
 import path from 'path'
 
-import { isExists } from './utils.js'
+const filePath = path.resolve(import.meta.dirname, 'files/fileToRead.txt')
 
 const read = async () => {
-	const filePath = path.resolve('src', 'fs', 'files', 'fileToRead.txt')
-	const isFileExists = await isExists(filePath)
-	if (isFileExists) {
+	try {
 		const fileContent = await fs.readFile(filePath, 'utf-8')
 		console.log(fileContent)
-	} else {
+	} catch (error) {
+		console.log(error)
 		throw new Error('FS operation failed')
 	}
 }

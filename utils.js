@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs'
 
-export async function isExists(folderPath) {
+export async function isFileExists(folderPath) {
 	return await fs
 		.access(folderPath)
 		.then(() => true)

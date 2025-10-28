@@ -1,25 +1,23 @@
-import { promises as fs } from 'fs'
+import { cp } from 'fs/promises'
 import path from 'path'
-import { isExists } from './utils.js'
+import { isFileExists } from '../../utils.js'
+
+const srcFolderPath = path.resolve(import.meta.dirname, 'files')
+const destFolderPath = path.resolve(import.meta.dirname, 'files_copy')
+const isSrcFolderPathExists = await isFileExists(srcFolderPath)
 
 const copy = async () => {
-	const srcFolderPath = path.join(process.cwd(), 'src', 'fs', 'files')
-	const destFolderPath = path.join(process.cwd(), 'src', 'fs', 'files_copy')
-
-	const isSrcFolderPathExists = isExists(srcFolderPath)
-
 	if (!isSrcFolderPathExists) {
 		throw new Error('FS operation failed')
 	} else {
-		await fs
-			.cp(srcFolderPath, destFolderPath, {
-				recursive: true,
-				errorOnExist: true,
-				force: false,
-			})
-			.catch(() => {
-				throw new Error('FS operation failed')
-			})
+		await cp(srcFolderPath, destFolderPath, {
+			recursive: true,
+			errorOnExist: true,
+			force: false,
+		}).catch(error => {
+			console.log(error)
+			throw new Error('FS operation failed')
+		})
 	}
 }
 

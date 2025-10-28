@@ -1,17 +1,14 @@
-import { promises as fs } from 'fs'
+import { writeFile } from 'fs/promises'
 import path from 'path'
-import { isExists } from './utils.js'
+
+const fileUrl = path.resolve(import.meta.dirname, 'files/fresh.txt')
 
 const create = async () => {
-	const folderPath = path.join(process.cwd(), 'src', 'fs', 'files')
-	const filePath = path.join(folderPath, 'fresh.txt')
-
-	const fileExists = isExists(filePath)
-
-	if (fileExists) {
+	try {
+		await writeFile(fileUrl, 'I am fresh and young', { flag: 'wx' })
+	} catch (err) {
+		console.log(err)
 		throw new Error('FS operation failed')
-	} else {
-		await fs.writeFile(filePath, 'I am fresh and young')
 	}
 }
 

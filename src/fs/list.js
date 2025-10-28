@@ -1,16 +1,14 @@
-import { promises as fs } from 'fs'
+import { readdir } from 'fs/promises'
 import path from 'path'
 
-import { isExists } from './utils.js'
+const folderPath = path.resolve(import.meta.dirname, 'files')
 
 const list = async () => {
-	const folderPath = path.resolve('src', 'fs', 'files')
-	const isFolderPath = isExists(folderPath)
-
-	if (isFolderPath) {
-		const listFiles = await fs.readdir(folderPath)
+	try {
+		const listFiles = await readdir(folderPath)
 		console.log(listFiles)
-	} else {
+	} catch (error) {
+		console.log(error)
 		throw new Error('FS operation failed')
 	}
 }

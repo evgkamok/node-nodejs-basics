@@ -1,17 +1,13 @@
-import { promises as fs } from 'fs'
+import { rm } from 'fs/promises'
 import path from 'path'
 
-import { isExists } from './utils.js'
+const filePath = path.resolve(import.meta.dirname, 'files/fileToRemove.txt')
 
 const remove = async () => {
-	const filePath = path.resolve('src', 'fs', 'files', 'fileToRemove.txt')
-	const isFileExists = await isExists(filePath)
-
-	if (isFileExists) {
-		await fs.rm(filePath).catch(() => {
-			throw new Error('FS operation failed')
-		})
-	} else {
+	try {
+		await rm(filePath)
+	} catch (error) {
+		console.log(error)
 		throw new Error('FS operation failed')
 	}
 }

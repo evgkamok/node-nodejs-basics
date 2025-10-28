@@ -1,6 +1,6 @@
 import path from 'path'
 import { release, version } from 'node:os'
-import { createServer } from 'node:http'
+import { createServer as createServerHttp } from 'node:http'
 import { fileURLToPath } from 'node:url'
 
 import './files/c.cjs'
@@ -20,7 +20,7 @@ const dirName = path.dirname(fileName)
 console.log(`Path to current file is ${fileName}`)
 console.log(`Path to current directory is ${dirName}`)
 
-const myServer = createServer((_, res) => {
+const myServer = createServerHttp((_, res) => {
 	res.end('Request accepted')
 })
 

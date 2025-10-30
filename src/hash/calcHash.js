@@ -1,5 +1,16 @@
-const calculateHash = async () => {
-  // Write your code here
-};
+import { readFile } from 'fs/promises'
+import { createHash } from 'crypto'
+import path from 'path'
 
-await calculateHash();
+const filePath = path.resolve(
+	import.meta.dirname,
+	'files/fileToCalculateHashFor.txt'
+)
+
+const calculateHash = async () => {
+	const textFromFile = await readFile(filePath)
+	const hash = createHash('sha256').update(textFromFile)
+	console.log(hash.digest('hex'))
+}
+
+await calculateHash()

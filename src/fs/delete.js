@@ -1,5 +1,15 @@
-const remove = async () => {
-  // Write your code here
-};
+import { rm } from 'fs/promises'
+import path from 'path'
 
-await remove();
+const filePath = path.resolve(import.meta.dirname, 'files/fileToRemove.txt')
+
+const remove = async () => {
+	try {
+		await rm(filePath)
+	} catch (error) {
+		console.log(error)
+		throw new Error('FS operation failed')
+	}
+}
+
+await remove()

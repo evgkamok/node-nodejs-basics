@@ -1,5 +1,6 @@
 import { createCLIInterface } from './cli/interface.js'
 import { parseCliArgs } from './cli/parser.js'
+import { cd, ls, up } from './commands/commands.js'
 
 const { username } = parseCliArgs()
 
@@ -8,13 +9,13 @@ async function handleCommand(command) {
 
 	switch (cmd) {
 		case 'up':
-			console.log('Command up')
+			up()
 			break
 		case 'cd':
-			console.log(`Command cd ${args[0]}`)
+			cd(args[0])
 			break
 		case 'ls':
-			console.log('Command ls')
+			ls()
 			break
 		default:
 			console.log('Invalid input')

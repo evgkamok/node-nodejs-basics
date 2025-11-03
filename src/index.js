@@ -1,9 +1,10 @@
 import { createCLIInterface } from './cli/interface.js'
 import { parseCliArgs } from './cli/parser.js'
-import { cd, ls, up } from './commands/commands.js'
+import { cd, ls, up } from './commands/navigation.js'
 import { add, cat, cp, mv, rm, rn } from './commands/files.js'
 import { hash } from './commands/hash.js'
 import { osInfo } from './commands/os.js'
+import { compress, decompress } from './commands/compress.js'
 
 const { username } = parseCliArgs()
 
@@ -11,6 +12,7 @@ async function handleCommand(command) {
 	const [cmd, ...args] = command.split(' ')
 
 	switch (cmd) {
+		// NAVIGATION
 		case 'up':
 			await up()
 			break
@@ -21,7 +23,7 @@ async function handleCommand(command) {
 			await ls()
 			break
 
-		// File operations
+		// FILE OPERATION
 		case 'cat':
 			await cat(args[0])
 			break
@@ -50,6 +52,13 @@ async function handleCommand(command) {
 			await hash(args[0])
 			break
 
+		// COMPRESS / DECOMPRESS
+		case 'compress':
+			await compress(args[0], args[1])
+			break
+		case 'decompress':
+			await decompress(args[0], args[1])
+			break
 		default:
 			console.log('Invalid input')
 	}
@@ -60,3 +69,5 @@ console.log(`You are currently in ${process.cwd()}`)
 
 const rl = createCLIInterface(username, handleCommand)
 rl.prompt()
+
+// compress ./src/index.js ./src/cli

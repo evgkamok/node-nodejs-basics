@@ -39,7 +39,7 @@ export async function ls() {
 			.sort()
 
 		const files = entries
-			.filter(entry => entry.isFile)
+			.filter(entry => entry.isFile())
 			.map(entry => entry.name)
 			.sort()
 

@@ -8,19 +8,15 @@ export async function compress(srcPath, dstPath) {
 		throw new Error('Both arguments is required')
 	}
 
-	try {
-		const absSrcPath = path.resolve(srcPath)
-		const absDstPath = path.resolve(dstPath)
+	const absSrcPath = path.resolve(srcPath)
+	const absDstPath = path.resolve(dstPath)
 
-		const source = createReadStream(absSrcPath)
-		const destination = createWriteStream(absDstPath)
-		const gzip = createGzip()
+	const source = createReadStream(absSrcPath)
+	const destination = createWriteStream(absDstPath)
+	const gzip = createGzip()
 
-		await pipeline(source, gzip, destination)
-		console.log(`Compressed successfully to ${absDstPath}`)
-	} catch (error) {
-		throw new Error('Failed to compress file')
-	}
+	await pipeline(source, gzip, destination)
+	console.log(`Compressed successfully to ${absDstPath}`)
 }
 
 export async function decompress(srcPath, dstPath) {
@@ -28,18 +24,14 @@ export async function decompress(srcPath, dstPath) {
 		throw new Error('Both arguments are required')
 	}
 
-	try {
-		const absSrcPath = path.resolve(srcPath)
-		const absDstPath = path.resolve(dstPath)
+	const absSrcPath = path.resolve(srcPath)
+	const absDstPath = path.resolve(dstPath)
 
-		const source = createReadStream(absSrcPath)
-		const destination = createWriteStream(absDstPath)
-		const gunZlib = createGunzip()
+	const source = createReadStream(absSrcPath)
+	const destination = createWriteStream(absDstPath)
+	const gunZlib = createGunzip()
 
-		await pipeline(source, gunZlib, destination)
+	await pipeline(source, gunZlib, destination)
 
-		console.log(`Decompressed successfully to ${absDstPath}`)
-	} catch (error) {
-		throw new Error('Failed to decompress file')
-	}
+	console.log(`Decompressed successfully to ${absDstPath}`)
 }

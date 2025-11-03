@@ -16,9 +16,11 @@ export function createCLIInterface(username, commandHandler) {
 		}
 
 		if (command) {
-			await commandHandler(command)
-		} else {
-			console.log('Operation failed')
+			try {
+				await commandHandler(command)
+			} catch (error) {
+				console.log('Operation failed')
+			}
 		}
 
 		console.log(`You are currently in ${process.cwd()}`)

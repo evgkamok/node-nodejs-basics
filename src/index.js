@@ -41,6 +41,7 @@ async function handleCommand(command) {
 			break
 		case 'rm':
 			await rm(args[0], args[1])
+			break
 		case 'mkdir':
 			await mkdir(args[0])
 			break

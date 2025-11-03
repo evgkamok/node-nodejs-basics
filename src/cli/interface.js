@@ -20,6 +20,12 @@ export function createCLIInterface(username, commandHandler) {
 				await commandHandler(command)
 			} catch (error) {
 				console.log('Operation failed')
+
+				if (error.code === 'ENOENT') {
+					console.log('ENOENT: no such file or directory')
+				} else {
+					console.log(error.message)
+				}
 			}
 		}
 

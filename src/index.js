@@ -2,6 +2,7 @@ import { createCLIInterface } from './cli/interface.js'
 import { parseCliArgs } from './cli/parser.js'
 import { cd, ls, up } from './commands/commands.js'
 import { add, cat, cp, mv, rm, rn } from './commands/files.js'
+import { hash } from './commands/hash.js'
 import { osInfo } from './commands/os.js'
 
 const { username } = parseCliArgs()
@@ -43,6 +44,12 @@ async function handleCommand(command) {
 		case 'os':
 			await osInfo(args[0])
 			break
+
+		// HASH
+		case 'hash':
+			await hash(args[0])
+			break
+
 		default:
 			console.log('Invalid input')
 	}

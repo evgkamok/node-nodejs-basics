@@ -1,6 +1,6 @@
 import { readdir } from 'node:fs/promises'
+import os from 'node:os'
 import path from 'node:path'
-import process from 'node:process'
 
 export async function up() {
 	try {
@@ -35,28 +35,32 @@ export async function ls() {
 
 		const directories = entries
 			.filter(entry => entry.isDirectory())
-			.map(entry => entry.name)
-			.sort()
+			.map(entry => ({
+				Name: entry.name,
+				Type: 'directory',
+			}))
 
 		const files = entries
 			.filter(entry => entry.isFile())
-			.map(entry => entry.name)
-			.sort()
+			.map(entry => ({
+				Name: entry.name,
+				Type: 'file',
+			}))
 
-		if (directories.length > 0) {
-			console.log('\nDirectories:')
-			directories.forEach(dir => console.log(`  📁 ${dir}`))
-		}
+		const contentDir = [...directories, ...files]
 
-		if (files.length > 0) {
-			console.log('\nFiles:')
-			files.forEach(file => console.log(`  📄 ${file}`))
-		}
+		console.table(contentDir)
 
 		if (directories.length === 0 && files.length === 0) {
 			console.log('Directory is empty')
 		}
 	} catch (error) {
+		console.log(error)
 		throw new Error('Failed to list directory contents')
 	}
+}
+
+export async function goHomeDir() {
+	const homePath = os.homedir()
+	process.chdir(homePath)
 }

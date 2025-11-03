@@ -1,6 +1,6 @@
 import { createCLIInterface } from './cli/interface.js'
 import { parseCliArgs } from './cli/parser.js'
-import { cd, ls, up } from './commands/navigation.js'
+import { cd, goHomeDir, ls, up } from './commands/navigation.js'
 import { add, cat, cp, mv, rm, rn } from './commands/files.js'
 import { hash } from './commands/hash.js'
 import { osInfo } from './commands/os.js'
@@ -64,10 +64,9 @@ async function handleCommand(command) {
 	}
 }
 
+goHomeDir()
 console.log(`Welcome to the File Manager, ${username}!`)
 console.log(`You are currently in ${process.cwd()}`)
 
 const rl = createCLIInterface(username, handleCommand)
 rl.prompt()
-
-// compress ./src/index.js ./src/cli

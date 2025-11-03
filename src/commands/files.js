@@ -1,4 +1,11 @@
-import { readFile, rename, writeFile, copyFile, unlink } from 'node:fs/promises'
+import {
+	readFile,
+	rename,
+	writeFile,
+	copyFile,
+	unlink,
+	mkdir as creteDirectory,
+} from 'node:fs/promises'
 import path from 'node:path'
 
 export async function cat(filePath) {
@@ -85,12 +92,8 @@ export async function mv(srcPath, destDir) {
 		const absDestPath = path.resolve(destDir)
 		const destPath = path.join(absDestPath, srcFileName)
 
-		try {
-			await rename(absSrcPath, destPath)
-			console.log(`File moved successfully`)
-		} catch (error) {
-			throw new Error("Rename doesn't work")
-		}
+		await rename(absSrcPath, destPath)
+		console.log(`File moved successfully`)
 	} catch (error) {
 		throw new Error('Failed to move file')
 	}
@@ -108,5 +111,18 @@ export async function rm(filePath) {
 		console.log(`File deleted successfully`)
 	} catch (error) {
 		throw new Error('Failed to delete file')
+	}
+}
+
+export async function mkdir(nameDir) {
+	if (!nameDir) {
+		throw new Error('Name directory is required')
+	}
+
+	try {
+		await creteDirectory(nameDir)
+		console.log(`Directory successfully created`)
+	} catch (error) {
+		throw new Error('Failed to create directory')
 	}
 }

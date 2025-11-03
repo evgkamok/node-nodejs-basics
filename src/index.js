@@ -1,7 +1,7 @@
 import { createCLIInterface } from './cli/interface.js'
 import { parseCliArgs } from './cli/parser.js'
 import { cd, goHomeDir, ls, up } from './commands/navigation.js'
-import { add, cat, cp, mv, rm, rn } from './commands/files.js'
+import { add, cat, cp, mkdir, mv, rm, rn } from './commands/files.js'
 import { hash } from './commands/hash.js'
 import { osInfo } from './commands/os.js'
 import { compress, decompress } from './commands/compress.js'
@@ -41,6 +41,9 @@ async function handleCommand(command) {
 			break
 		case 'rm':
 			await rm(args[0], args[1])
+		case 'mkdir':
+			await mkdir(args[0])
+			break
 
 		//OS
 		case 'os':

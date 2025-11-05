@@ -1,0 +1,5 @@
+{
+	// "compilerOptions": { "checkJs": true },
+	"typeAcquisition": { "include": ["node"] },
+	"exclude": ["node_modules"]
+}
